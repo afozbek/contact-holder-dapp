@@ -1,4 +1,4 @@
-## Full stack Contact-Holder Dapp
+## Full-Stack Contact-Holder Dapp
 
 Simple Dapp that is created for understanding how smart contract and client operates.
 
