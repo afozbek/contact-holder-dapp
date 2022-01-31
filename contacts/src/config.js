@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = '0x200E785A17bc54F875fbec2F2E7d207D6C20CBCb';
+export const CONTRACT_ADDRESS = '0xEFB2A323Ff4645E0d7390099d73B10d91d4EA657';
 
 export const CONTRACT_ABI = [
   {
@@ -16,7 +16,7 @@ export const CONTRACT_ABI = [
         "type": "uint256"
       }
     ],
-    "name": "contacts",
+    "name": "contactList",
     "outputs": [
       {
         "internalType": "uint256",

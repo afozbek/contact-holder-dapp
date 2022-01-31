@@ -4,8 +4,9 @@ import { CONTRACT_ABI, CONTRACT_ADDRESS } from './config';
 
 function App() {
   const [account, setAccount] = useState();
-  const [_, setContactList] = useState();
+
   const [contacts, setContacts] = useState([]);
+  const [contactSmartContractInstance, setContactSmartContractInstance] = useState(null);
 
   useEffect(() => {
     async function load() {
@@ -17,28 +18,34 @@ function App() {
 
       // Instantiate smart contract using ABI and address.
       const contactList = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
+      setContactSmartContractInstance(contactList)
       // set contact list to state variable.
-      setContactList(contactList);
 
-
-      // Then we get total number of contacts for iteration
-      const counter = await contactList.methods.count().call();
-
-
-      let totalContacts = []
-      // // iterate through the amount of time of counter
-      for (var i = 1; i <= counter; i++) {
-        // call the contacts method to get that particular contact from smart contract
-        const contact = await contactList.methods.contacts(i).call();
-        // add recently fetched contact to state variable.
-        totalContacts.push(contact)
-      }
-
-      setContacts(totalContacts);
+      await getContactList(contactList)
     }
 
     load();
   }, []);
+
+  const getContactList = async (contactSmartContractInstance) => {
+    // Then we get total number of contacts for iteration
+    const counter = await contactSmartContractInstance.methods.count().call();
+    console.log({ counter })
+
+    let totalContacts = []
+    // // iterate through the amount of time of counter
+    for (var i = 1; i <= counter; i++) {
+      // call the contacts method to get that particular contact from smart contract
+      const { id, name, phone } = await contactSmartContractInstance.methods.contactList(i).call();
+      // add recently fetched contact to state variable.
+      totalContacts.push(
+        { id, name, phone }
+      )
+    }
+
+    debugger
+    setContacts(totalContacts);
+  }
 
   return (
     <div>
