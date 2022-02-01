@@ -40,7 +40,17 @@ body {
 
 .contact-list {
   padding: 10px;
+
   .contact-item {
     margin-bottom: 10px;
+    list-style: none;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 10px;
+    min-width: 200px;
+
+    .phone {
+      font-size: 14px;
+    }
   }
 }

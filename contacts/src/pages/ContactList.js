@@ -1,6 +1,7 @@
 import ContactItem from "components/ContactList/ContactItem";
 import AppContext from "context/AppContext";
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -39,20 +40,7 @@ const ContactList = () => {
   }
 
   // This will send a transaction for creating contact
-  const createContact = async (name, phone) => {
-    // const contactList = await getContractInstance();
 
-    return new Promise(async (resolve, reject) => {
-      const tx = await smartContractInstance.methods.createContact(name, phone).send({ from: account });
-      tx
-        .on("transactionHash", (hash) => resolve(hash))
-        .on("error", (error) => reject(error))
-    })
-  }
-
-  const handleCreateContact = () => {
-
-  }
   return (
     <>
       <h1 className="header">Contacts</h1>
@@ -64,8 +52,7 @@ const ContactList = () => {
           ))
         }
 
-        <button onClick={handleCreateContact}>Add new Contact</button>
-
+        <Link to="/newContact">Add New Contact</Link>
       </ul>
     </>
   )
