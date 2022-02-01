@@ -10,14 +10,9 @@ function App() {
 
   useEffect(() => {
     async function load() {
-      const localGanacheRPCUrl = "http://localhost:7545"
 
-      const web3 = new Web3(Web3.givenProvider || localGanacheRPCUrl);
-      const accounts = await web3.eth.requestAccounts();
-      setAccount(accounts[0]);
+      const contactList = await getContractInstance();
 
-      // Instantiate smart contract using ABI and address.
-      const contactList = new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
       setContactSmartContractInstance(contactList)
       // set contact list to state variable.
 
@@ -45,6 +40,31 @@ function App() {
 
     debugger
     setContacts(totalContacts);
+  }
+
+
+  // This will send a transaction for creating contact
+  const createContact = async (name, phone) => {
+    const contactList = await getContractInstance();
+
+    return new Promise(async (resolve, reject) => {
+      const tx = await contactList.methods.createContact(name, phone).send({ from: account });
+      debugger
+      tx
+        .on("transactionHash", (hash) => resolve(hash))
+        .on("error", (error) => reject(error))
+    })
+  }
+
+  // Returns contactSmartContractInstance
+  const getContractInstance = async () => {
+    const localGanacheRPCUrl = "http://localhost:7545"
+    const web3 = new Web3(Web3.givenProvider || localGanacheRPCUrl);
+    const accounts = await web3.eth.requestAccounts();
+    setAccount(accounts[0]);
+
+    // Instantiate smart contract using ABI and address.
+    return new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
   }
 
   return (
