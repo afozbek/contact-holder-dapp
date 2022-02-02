@@ -1,4 +1,4 @@
-export const CONTRACT_ADDRESS = "0xEFB2A323Ff4645E0d7390099d73B10d91d4EA657";
+export const CONTRACT_ADDRESS = "0xf075b9E853bDE58A6F333163A37C49e3ecA1cd03";
 
 export const CONTRACT_ABI = [
   {
@@ -68,6 +68,21 @@ export const CONTRACT_ABI = [
       }
     ],
     "name": "createContact",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "contactId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteContact",
     "outputs": [],
     "payable": false,
     "stateMutability": "nonpayable",
