@@ -30,6 +30,9 @@ const ContactList = () => {
     for (var i = 1; i <= counter; i++) {
       // call the contacts method to get that particular contact from smart contract
       const { id, name, phone } = await smartContractInstance.methods.contactList(i).call();
+      if (!name && !phone) {
+        continue
+      }
       // add recently fetched contact to state variable.
       totalContacts.push(
         { id, name, phone }

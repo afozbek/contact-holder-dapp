@@ -1,9 +1,11 @@
 import AppContext from "context/AppContext";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { useNavigate} from "react-router-dom"
 
 const AddNewContact = () => {
   const { account, smartContractInstance } = useContext(AppContext)
+  let navigate = useNavigate();
 
   const [formState, setFormState] = useState({
     name: "",
@@ -24,9 +26,11 @@ const AddNewContact = () => {
 
     try {
       const hash = await createContactTx(name, phone)
+
       console.log({ hash })
       toast.success(hash)
       e.target.reset();
+      navigate("/contacts")
     }
     catch (err) {
       toast.error(err.message)
