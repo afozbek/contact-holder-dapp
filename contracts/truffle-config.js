@@ -18,10 +18,11 @@
  *
  */
 
-// const HDWalletProvider = require('@truffle/hdwallet-provider');
+const HDWalletProvider = require('@truffle/hdwallet-provider');
 //
-// const fs = require('fs');
-// const mnemonic = fs.readFileSync(".secret").toString().trim();
+const fs = require('fs');
+const apiKey = fs.readFileSync(".TRUFFLE_API_KEY").toString().trim();
+const mnemonic = fs.readFileSync(".PHRASE").toString().trim();
 
 module.exports = {
   /**
@@ -39,6 +40,12 @@ module.exports = {
       host: "127.0.0.1",
       port: 7545,
       network_id: "*"
+    },
+    kovan: {
+      provider: () => new HDWalletProvider(mnemonic, `wss://kovan.infura.io/ws/v3/${apiKey}`),
+      network_id: 42,
+      gas: 4000000,
+      skipDryRun: true
     }
   },
   compilers: {
