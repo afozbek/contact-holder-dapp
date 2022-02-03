@@ -8,6 +8,24 @@ body {
   // background-color: green;
 }
 
+button {
+  cursor: pointer !important;
+}
+
+.ReactModal__Content {
+  max-width: 300px;
+  max-height: 300px;
+  margin: 0 auto;
+  position: relative;
+  padding-top: 40px !important;
+
+  .close-btn {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+  }
+}
+
 .app-container {
   position: relative;
   display: flex;

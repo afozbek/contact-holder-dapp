@@ -1,14 +1,69 @@
-export const CONTRACT_ADDRESS = "0xf075b9E853bDE58A6F333163A37C49e3ecA1cd03";
 
+// Change here with your contract address
+export const CONTRACT_ADDRESS = "0xb4CCf811dEd4c648dB9371C44211462d6270e89b";
+
+// If you just want to test functionality you do not need to change it
 export const CONTRACT_ABI = [
   {
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_phone",
+        "type": "string"
+      }
+    ],
+    "name": "createContact",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contactId",
+        "type": "uint256"
+      }
+    ],
+    "name": "deleteContact",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "_contactId",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_phone",
+        "type": "string"
+      }
+    ],
+    "name": "editContact",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
     "inputs": [],
-    "payable": false,
     "stateMutability": "nonpayable",
     "type": "constructor"
   },
   {
-    "constant": true,
     "inputs": [
       {
         "internalType": "uint256",
@@ -34,12 +89,10 @@ export const CONTRACT_ABI = [
         "type": "string"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
     "type": "function"
   },
   {
-    "constant": true,
     "inputs": [],
     "name": "count",
     "outputs": [
@@ -49,43 +102,7 @@ export const CONTRACT_ABI = [
         "type": "uint256"
       }
     ],
-    "payable": false,
     "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "string",
-        "name": "_name",
-        "type": "string"
-      },
-      {
-        "internalType": "string",
-        "name": "_phone",
-        "type": "string"
-      }
-    ],
-    "name": "createContact",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "internalType": "uint256",
-        "name": "contactId",
-        "type": "uint256"
-      }
-    ],
-    "name": "deleteContact",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
     "type": "function"
   }
 ]
