@@ -1,4 +1,4 @@
-const Contacts = artifacts.require("./Contacts.sol");
+const Contacts = artifacts.require("Contacts");
 
 module.exports = function (deployer) {
   deployer.deploy(Contacts);
