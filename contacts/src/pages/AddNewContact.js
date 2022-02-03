@@ -1,7 +1,7 @@
 import AppContext from "context/AppContext";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import { useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const AddNewContact = () => {
   const { account, smartContractInstance } = useContext(AppContext)
@@ -53,13 +53,13 @@ const AddNewContact = () => {
     <div>
       <label>
         Name:
-        <input type="text" name="name" onChange={(e) => { setFormState({ ...formState, name: e.target.value }) }} />
+        <input type="text" name="name" value={formState.name} onChange={(e) => { setFormState({ ...formState, name: e.target.value }) }} />
       </label>
     </div>
     <div>
       <label>
         Number:
-        <input type="text" name="phone" onChange={(e) => { setFormState({ ...formState, phone: e.target.value }) }} />
+        <input type="text" name="phone" value={formState.phone} onChange={(e) => { setFormState({ ...formState, phone: e.target.value }) }} />
       </label>
     </div>
 

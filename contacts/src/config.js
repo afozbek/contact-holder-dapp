@@ -1,5 +1,8 @@
+
+// Change here with your contract address
 export const CONTRACT_ADDRESS = "0xb4CCf811dEd4c648dB9371C44211462d6270e89b";
 
+// If you just want to test functionality you do not need to change it
 export const CONTRACT_ABI = [
   {
     "inputs": [

@@ -1,11 +1,11 @@
 import ContactItem from "components/ContactList/ContactItem";
 import AppContext from "context/AppContext";
-import React, { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
-  const { account, smartContractInstance } = useContext(AppContext)
+  const { smartContractInstance } = useContext(AppContext)
 
   useEffect(() => {
     async function load() {
@@ -57,6 +57,7 @@ const ContactList = () => {
 
         <Link to="/newContact">Add New Contact</Link>
       </ul>
+
     </>
   )
 
