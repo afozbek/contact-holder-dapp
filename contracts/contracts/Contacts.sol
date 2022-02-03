@@ -21,15 +21,17 @@ contract Contacts {
     }
     mapping(uint256 => Contact) public contactList;
 
-    
-
     function createContact(string memory _name, string memory _phone) public {
         count++;
 
         contactList[count] = Contact(count, _name, _phone);
     }
 
-    function deleteContact(uint256 contactId) public onlyOwner{
-        delete contactList[contactId];
+    function editContact(uint256 _contactId, string memory _name, string memory _phone) public onlyOwner{
+        contactList[_contactId] = Contact(_contactId, _name, _phone);
+    }
+
+    function deleteContact(uint256 _contactId) public onlyOwner{
+        delete contactList[_contactId];
     }
 }
