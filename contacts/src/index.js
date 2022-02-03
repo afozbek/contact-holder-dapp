@@ -8,8 +8,11 @@ import "react-toastify/dist/ReactToastify.css";
 import "scss/main.scss";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ContactList from "pages/ContactList";
-import ContactItem from "components/ContactList/ContactItem";
 import AddNewContact from "pages/AddNewContact";
+
+import dotenv from "dotenv"
+
+dotenv.config()
 
 ReactDOM.render(
   <React.StrictMode>
