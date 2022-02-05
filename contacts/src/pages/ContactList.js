@@ -12,7 +12,7 @@ const ContactList = () => {
   })
 
   const { smartContractInstance } = useContext(AppContext)
-  const { transactionList, setTransactionList } = useContext(TransactionContext)
+  const { transactionList } = useContext(TransactionContext)
   const { lastFinishedTransaction } = useTransactionListener()
 
   useEffect(() => {

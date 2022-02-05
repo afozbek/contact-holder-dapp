@@ -1,10 +1,7 @@
-import useInterval from "hooks/useInterval";
-import { createContext, useContext, useEffect, useState } from "react"
+import { createContext, useEffect, useState } from "react"
 
-import { TRANSACTION_STATUS_TYPES } from "utils/enums"
 import Web3 from "web3";
 import { CONTRACT_ABI, CONTRACT_ADDRESS } from "config";
-import { toast } from "react-toastify";
 
 const TransactionContext = createContext()
 
