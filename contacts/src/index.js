@@ -11,6 +11,7 @@ import ContactList from "pages/ContactList";
 import AddNewContact from "pages/AddNewContact";
 
 import dotenv from "dotenv"
+import { TransactionContextProvider } from "context/TransactionContext";
 
 dotenv.config()
 
@@ -18,23 +19,25 @@ ReactDOM.render(
   <React.StrictMode>
     <ToastContainer />
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route path="contacts" element={<ContactList />}>
-            {/* <Route path=":contactId" element={<ContactItem />} /> */}
+      <TransactionContextProvider>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route path="contacts" element={<ContactList />}>
+              {/* <Route path=":contactId" element={<ContactItem />} /> */}
 
+            </Route>
+            <Route path="newContact" element={<AddNewContact />} />
+
+            <Route path="*"
+              element={
+                <main >
+                  <p> nothing here!</p>
+                </main>
+              }
+            />
           </Route>
-          <Route path="newContact" element={<AddNewContact />} />
-
-          <Route path="*"
-            element={
-              <main >
-                <p> nothing here!</p>
-              </main>
-            }
-          />
-        </Route>
-      </Routes>
+        </Routes>
+      </TransactionContextProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")
