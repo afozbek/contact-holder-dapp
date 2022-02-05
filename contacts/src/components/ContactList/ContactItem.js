@@ -1,14 +1,17 @@
 import ModalEditContact from "components/modals/ModalEditContact";
 import AppContext from "context/AppContext";
+import { TransactionContext } from "context/TransactionContext";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
+import { TRANSACTION_NAMES } from "utils/enums";
 
 const ContactItem = ({ contact }) => {
 
   const [modals, setModals] = useState({
     ModalEditContact: false
   })
-  const { account, smartContractInstance } = useContext(AppContext)
+  const { account, smartContractInstance, web3Instance } = useContext(AppContext)
+  const { transactionList, setTransactionList } = useContext(TransactionContext)
 
   const handleEditContact = async (newContact) => {
     if (!contact || !contact.id) {
@@ -21,6 +24,14 @@ const ContactItem = ({ contact }) => {
 
     try {
       const hash = await editContactTx(contact.id, newContact.name, newContact.phone)
+      const tx = await web3Instance.eth.getTransaction(hash);
+      console.log({ tx })
+      const newTx = {
+        ...tx,
+        type: TRANSACTION_NAMES.UPDATE_CONTACT
+      }
+
+      setTransactionList([...transactionList, newTx])
       console.log({ hash })
       toast.success(hash)
     }
@@ -51,6 +62,12 @@ const ContactItem = ({ contact }) => {
 
     try {
       const hash = await deleteContactTx(contact.id)
+      const tx = await web3Instance.eth.getTransaction(hash);
+      const newTx = {
+        ...tx,
+        type: TRANSACTION_NAMES.UPDATE_CONTACT
+      }
+      setTransactionList([...transactionList, newTx])
       console.log({ hash })
       toast.success(hash)
 
@@ -71,6 +88,8 @@ const ContactItem = ({ contact }) => {
         .on("error", (error) => reject(error))
     })
   }
+
+
 
   return (
     <>

@@ -1,11 +1,19 @@
 import ContactItem from "components/ContactList/ContactItem";
 import AppContext from "context/AppContext";
+import { TransactionContext } from "context/TransactionContext";
+import useTransactionListener from "hooks/useTransactionListener";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState({
+    isContactListLoading: false
+  })
+
   const { smartContractInstance } = useContext(AppContext)
+  const { transactionList } = useContext(TransactionContext)
+  const { lastFinishedTransaction } = useTransactionListener()
 
   useEffect(() => {
     async function load() {
@@ -25,6 +33,7 @@ const ContactList = () => {
     const counter = await smartContractInstance.methods.count().call();
     console.log({ counter })
 
+    setLoading({ isContactListLoading: true })
     let totalContacts = []
     // // iterate through the amount of time of counter
     for (var i = 1; i <= counter; i++) {
@@ -40,23 +49,43 @@ const ContactList = () => {
     }
 
     setContacts(totalContacts);
+    setLoading({ isContactListLoading: false })
   }
 
   // This will send a transaction for creating contact
+
+  useEffect(() => {
+    const fetchNewList = async () => {
+      await getContactList()
+    }
+
+    if (lastFinishedTransaction) {
+      console.log({ lastFinishedTransaction })
+      fetchNewList();
+    }
+  }, [lastFinishedTransaction])
+
+  console.log({ transactionList })
 
   return (
     <>
       <h1 className="header">Contacts</h1>
 
-      <ul className="contact-list">
-        {
-          Object.keys(contacts).map((contact, index) => (
-            <ContactItem key={contacts[index]?.id} contact={contacts[index]} />
-          ))
-        }
+      {
+        !loading.isContactListLoading
+          ?
+          <ul className="contact-list">
+            {
+              Object.keys(contacts).map((contact, index) => (
+                <ContactItem key={contacts[index]?.id} contact={contacts[index]} />
+              ))
+            }
 
-        <Link to="/newContact">Add New Contact</Link>
-      </ul>
+            <Link to="/newContact">Add New Contact</Link>
+          </ul>
+          :
+          "Loading.."
+      }
 
     </>
   )

@@ -1,42 +1,22 @@
+/* eslint-disable no-undef */
 import AppContext from "context/AppContext";
-import { useEffect, useState } from "react";
+import { TransactionContext } from "context/TransactionContext";
+import { useContext, useEffect } from "react";
+import Modal from "react-modal/lib/components/Modal";
 import { Outlet } from "react-router";
 import { Link } from "react-router-dom";
-import Web3 from "web3";
-import { CONTRACT_ABI, CONTRACT_ADDRESS } from "./config";
 
 var App = () => {
-  const [account, setAccount] = useState();
-
-  const [web3Instance, setWeb3Instance] = useState(null);
-  const [smartContractInstance, setSmartContractInstance] = useState(null);
+  const {
+    web3Instance,
+    smartContractInstance,
+    account,
+    getContractInstance
+  } = useContext(TransactionContext)
 
   useEffect(() => {
-    async function load() {
-
-      const web3 = await getWeb3Instance();
-      const contactList = await getContractInstance(web3);
-
-      setWeb3Instance(web3)
-      setSmartContractInstance(contactList)
-    }
-
-    load();
+    Modal.setAppElement("body");
   }, []);
-
-  // Returns contactSmartContractInstance
-  const getContractInstance = async (web3) => {
-    const accounts = await web3.eth.requestAccounts();
-    setAccount(accounts[0]);
-
-    // Instantiate smart contract using ABI and address.
-    return new web3.eth.Contract(CONTRACT_ABI, CONTRACT_ADDRESS);
-  }
-
-  const getWeb3Instance = async () => {
-    const localGanacheRPCUrl = "http://localhost:7545"
-    return new Web3(Web3.givenProvider || localGanacheRPCUrl);
-  }
 
   return (
     <div className="app-container">
