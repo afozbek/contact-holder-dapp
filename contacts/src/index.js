@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
@@ -12,33 +13,39 @@ import AddNewContact from "pages/AddNewContact";
 
 import dotenv from "dotenv"
 import { TransactionContextProvider } from "context/TransactionContext";
+import { MoralisProvider } from "react-moralis";
 
 dotenv.config()
 
+const serverUrl = process.env.REACT_APP_MORALIS_SERVER_URL;
+const appId = process.env.REACT_APP_MORALIS_APPLICATION_ID;
+
 ReactDOM.render(
   <React.StrictMode>
-    <ToastContainer />
-    <BrowserRouter>
-      <TransactionContextProvider>
-        <Routes>
-          <Route path="/" element={<App />}>
-            <Route path="contacts" element={<ContactList />}>
-              {/* <Route path=":contactId" element={<ContactItem />} /> */}
+    <MoralisProvider appId={appId} serverUrl={serverUrl}>
+      <ToastContainer />
+      <BrowserRouter>
+        <TransactionContextProvider>
+          <Routes>
+            <Route path="/" element={<App />}>
+              <Route path="contacts" element={<ContactList />}>
+                {/* <Route path=":contactId" element={<ContactItem />} /> */}
 
+              </Route>
+              <Route path="newContact" element={<AddNewContact />} />
+
+              <Route path="*"
+                element={
+                  <main >
+                    <p> nothing here!</p>
+                  </main>
+                }
+              />
             </Route>
-            <Route path="newContact" element={<AddNewContact />} />
-
-            <Route path="*"
-              element={
-                <main >
-                  <p> nothing here!</p>
-                </main>
-              }
-            />
-          </Route>
-        </Routes>
-      </TransactionContextProvider>
-    </BrowserRouter>
+          </Routes>
+        </TransactionContextProvider>
+      </BrowserRouter>
+    </MoralisProvider>
   </React.StrictMode>,
   document.getElementById("root")
 );

@@ -4,6 +4,7 @@ import { TransactionContext } from "context/TransactionContext";
 import useTransactionListener from "hooks/useTransactionListener";
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Web3 from "web3";
 
 const ContactList = () => {
   const [contacts, setContacts] = useState([]);
@@ -12,7 +13,7 @@ const ContactList = () => {
   })
 
   const { smartContractInstance } = useContext(AppContext)
-  const { transactionList } = useContext(TransactionContext)
+  const { transactionList, web3Instance } = useContext(TransactionContext)
   const { lastFinishedTransaction } = useTransactionListener()
 
   useEffect(() => {
